@@ -11,7 +11,14 @@ let args = {
 };
 
 setInterval(() => {
+    unirest.post(LASTURL)
+        .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+        .end(response => {
+            var resp = response.body;
+            //bot.sendMessage(userId,`Temperature ${response.Temperature} Humidity: ${response.Humidity} at ${response.Created_at}`);
+            bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
 
+        })
 }, 3600);
 
 bot.onText(/\/last/, (msg, match) => {
