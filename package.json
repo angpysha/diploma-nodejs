@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "node-telegram-bot-api": "^0.30.0",
+    "unirest": "^0.5.1"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "8.9.1"
+  }
+}
