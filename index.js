@@ -1,5 +1,6 @@
 const TOKEN = "406213193:AAHXEJ5a91fstPv2T34wpAMxKeEB595QzWY";
-
+let express = require('express');
+let app = express();
 var port = process.env.PORT || 3000;
 app.listen(port, "0.0.0.0", function() {
     console.log("Listening on Port 3000");
@@ -12,6 +13,7 @@ const LASTURL = 'http://rasp.kl.com.ua/web/dhts/last';
 
 const bot = new TelegramBot(TOKEN, {polling: true});
 
+bot.lis
 
 bot.onText(/\/last/, (msg, match) => {
    var userId = msg.chat.id;
