@@ -10,16 +10,19 @@ let args = {
     headers: { "Content-Type": "application/json" }
 };
 
-setInterval(() => {
-    unirest.post(LASTURL)
-        .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-        .end(response => {
-            var resp = response.body;
-            //bot.sendMessage(userId,`Temperature ${response.Temperature} Humidity: ${response.Humidity} at ${response.Created_at}`);
-            bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
+function Interval(userId) {
+    setInterval(() => {
+        unirest.post(LASTURL)
+            .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+            .end(response => {
+                var resp = response.body;
+                //bot.sendMessage(userId,`Temperature ${response.Temperature} Humidity: ${response.Humidity} at ${response.Created_at}`);
+                bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
 
-        })
-}, 3600);
+            })
+    }, 3600*1000);
+}
+
 
 bot.onText(/\/last/, (msg, match) => {
    var userId = msg.chat.id;
