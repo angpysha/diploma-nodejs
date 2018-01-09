@@ -1,5 +1,10 @@
 const TOKEN = "406213193:AAHXEJ5a91fstPv2T34wpAMxKeEB595QzWY";
 
+var port = process.env.PORT || 3000;
+app.listen(port, "0.0.0.0", function() {
+    console.log("Listening on Port 3000");
+});
+
 const TelegramBot = require('node-telegram-bot-api');
 var unirest = require('unirest');
 
@@ -17,7 +22,7 @@ bot.onText(/\/last/, (msg, match) => {
             //bot.sendMessage(userId,`Temperature ${response.Temperature} Humidity: ${response.Humidity} at ${response.Created_at}`);
             bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
 
-        })
+        });
 
 });
 
