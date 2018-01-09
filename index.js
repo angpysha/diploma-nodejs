@@ -6,22 +6,6 @@ var unirest = require('unirest');
 const LASTURL = 'http://rasp.kl.com.ua/web/dhts/last';
 
 const bot = new TelegramBot(TOKEN, {polling: true});
-let args = {
-    headers: { "Content-Type": "application/json" }
-};
-
-function Interval(userId) {
-    setInterval(() => {
-        unirest.post(LASTURL)
-            .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-            .end(response => {
-                var resp = response.body;
-                //bot.sendMessage(userId,`Temperature ${response.Temperature} Humidity: ${response.Humidity} at ${response.Created_at}`);
-                bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
-
-            })
-    }, 3600*1000);
-}
 
 
 bot.onText(/\/last/, (msg, match) => {
@@ -49,6 +33,3 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
     bot.sendMessage(chatId, resp);
 });
 
-function getLast(id) {
-
-}
