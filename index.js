@@ -2,6 +2,8 @@ const TOKEN = "406213193:AAHXEJ5a91fstPv2T34wpAMxKeEB595QzWY";
 let express = require('express');
 let app = express();
 var port = process.env.PORT || 3000;
+var temperature;
+var humidity;
 app.listen(port, "0.0.0.0", function() {
     console.log("Listening on Port 3000");
 });
@@ -18,6 +20,7 @@ const bot = new TelegramBot(TOKEN, {polling: true});
 
 bot.onText(/\/last/, (msg, match) => {
    var userId = msg.chat.id;
+
     unirest.post(LASTURL)
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(response => {
