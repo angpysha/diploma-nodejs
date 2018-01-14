@@ -10,21 +10,39 @@ const TelegramBot = require('node-telegram-bot-api');
 var unirest = require('unirest');
 
 const LASTURL = 'http://rasp.kl.com.ua/web/dhts/last';
+const LASTURLBMP = 'http://rasp.kl.com.ua/web/bmps/last';
+
 
 const bot = new TelegramBot(TOKEN, {polling: true});
 
-bot.lis
 
 bot.onText(/\/last/, (msg, match) => {
    var userId = msg.chat.id;
+   var temperature;
+   var humidity;
     unirest.post(LASTURL)
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(response => {
             var resp = response.body;
+            temperature = resp.Temperature;
+            humidity = resp.Humidity;
             //bot.sendMessage(userId,`Temperature ${response.Temperature} Humidity: ${response.Humidity} at ${response.Created_at}`);
-            bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
+           // bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
 
         });
+
+    unirest.post(LASTURLBMP)
+        .header({'Accept': 'application/json', 'Content-Type': 'application/json'})
+        .end(response => {
+            var resp = response.body;
+            bot.sendMessage(userId,`Temperature: ${temperature}°C Humidity: ${humidity}% Pressure ${resp.Pressure/100} kPa at ${resp.Created_at}`);
+
+        });
+
+});
+
+bot.onText(/\/today/,(msg,match) => {
+   var userId = msg.chat.id;
 
 });
 
