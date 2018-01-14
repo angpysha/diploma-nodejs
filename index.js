@@ -18,8 +18,6 @@ const bot = new TelegramBot(TOKEN, {polling: true});
 
 bot.onText(/\/last/, (msg, match) => {
    var userId = msg.chat.id;
-   var temperature;
-   var humidity;
     unirest.post(LASTURL)
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(response => {
