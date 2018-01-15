@@ -25,10 +25,10 @@ bot.onText(/\/last/, (msg, match) => {
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(response => {
             var resp = response.body;
-            temperature = resp.Temperature;
-            humidity = resp.Humidity;
+         //   temperature = resp.Temperature;
+          //  humidity = resp.Humidity;
             //bot.sendMessage(userId,`Temperature ${response.Temperature} Humidity: ${response.Humidity} at ${response.Created_at}`);
-           // bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
+            bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
 
         });
 
@@ -36,7 +36,7 @@ bot.onText(/\/last/, (msg, match) => {
         .header({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(response => {
             var resp = response.body;
-            bot.sendMessage(userId,`Temperature: ${temperature}°C Humidity: ${humidity}% Pressure ${resp.Pressure/100} kPa at ${resp.Created_at}`);
+            bot.sendMessage(userId,`Pressure ${resp.Pressure/100} kPa at ${resp.Created_at}`);
 
         });
 
