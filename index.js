@@ -1,11 +1,28 @@
 const TOKEN = "406213193:AAHXEJ5a91fstPv2T34wpAMxKeEB595QzWY";
 let express = require('express');
+
 let app = express();
 var port = process.env.PORT || 3000;
 var temperature;
 var humidity;
-app.listen(port, "0.0.0.0", function() {
-    console.log("Listening on Port 3000");
+
+ var http = require('http').Server(app);
+
+http.listen(3000, function(){
+    console.log('listening on *:3000');
+});
+
+
+ let io = require('socket.io')(http);
+
+
+io.on('connection',(socket) => {
+    console.log('Connected');
+    socket.on('test', (msg) => {
+        console.log('In test');
+        console.log(`message: ${msg}`);
+        socket.emit('hre','fasds');
+    });
 });
 
 const TelegramBot = require('node-telegram-bot-api');
