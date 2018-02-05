@@ -1,11 +1,18 @@
 const TOKEN = "406213193:AAHXEJ5a91fstPv2T34wpAMxKeEB595QzWY";
 let express = require('express');
 let app = express();
+const socketIO = require('socket.io');
 var port = process.env.PORT || 3000;
 var temperature;
 var humidity;
 app.listen(port, "0.0.0.0", function() {
     console.log("Listening on Port 3000");
+});
+
+const io = socketIO(app);
+
+io.on('connection',(res) => {
+   console.log('coneect');
 });
 
 const TelegramBot = require('node-telegram-bot-api');
