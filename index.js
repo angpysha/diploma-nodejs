@@ -10,16 +10,22 @@ var humidity;
 
 const io = socketIO(http);
 
-io.on('connection',(socket) => {
-   console.log('coneect');
+io.on('connection', (socket) => {
+    console.log('coneect');
 
-   socket.on('test', (resp) => {
-       console.log(resp);
-       socket.emit('ttt', 'dfafs');
-   })
+    socket.on('test', (resp) => {
+        console.log(resp);
+        socket.emit('ttt', 'dfafs');
+    });
+
+    socket.on('critical', (resp) => {
+        let dat = JSON.stringify(resp);
+        socket.emit('changestate', dat);
+
+    });
 });
 
-http.listen(port, function() {
+http.listen(port, function () {
     console.log("Listening on Port 3000");
 
 });
@@ -29,24 +35,24 @@ var unirest = require('unirest');
 const LASTURL = 'http://rasp.kl.com.ua/web/dhts/last';
 const LASTURLBMP = 'http://rasp.kl.com.ua/web/bmps/last';
 
-app.get('/', function(req, res){
-    
+app.get('/', function (req, res) {
+
 });
 
 const bot = new TelegramBot(TOKEN, {polling: true});
 
 
 bot.onText(/\/last/, (msg, match) => {
-   var userId = msg.chat.id;
+    var userId = msg.chat.id;
 
     unirest.post(LASTURL)
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(response => {
             var resp = response.body;
-         //   temperature = resp.Temperature;
-          //  humidity = resp.Humidity;
+            //   temperature = resp.Temperature;
+            //  humidity = resp.Humidity;
             //bot.sendMessage(userId,`Temperature ${response.Temperature} Humidity: ${response.Humidity} at ${response.Created_at}`);
-            bot.sendMessage(userId,`Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
+            bot.sendMessage(userId, `Temperature: ${resp.Temperature} Humidity: ${resp.Humidity} at ${resp.Created_at}`);
 
         });
 
@@ -54,14 +60,14 @@ bot.onText(/\/last/, (msg, match) => {
         .header({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(response => {
             var resp = response.body;
-            bot.sendMessage(userId,`Pressure ${resp.Pressure/100} kPa at ${resp.Created_at}`);
+            bot.sendMessage(userId, `Pressure ${resp.Pressure / 100} kPa at ${resp.Created_at}`);
 
         });
 
 });
 
-bot.onText(/\/today/,(msg,match) => {
-   var userId = msg.chat.id;
+bot.onText(/\/today/, (msg, match) => {
+    var userId = msg.chat.id;
 
 });
 
