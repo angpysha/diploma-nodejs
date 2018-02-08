@@ -19,6 +19,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('critical', (resp) => {
+        console.log(resp);
         let dat = JSON.stringify(resp);
         socket.emit('changestate', dat);
 
