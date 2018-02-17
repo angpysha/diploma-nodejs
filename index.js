@@ -24,6 +24,10 @@ io.on('connection', (socket) => {
         io.emit('changestate', dat);
 
     });
+
+    socket.on('updatedata', (resp) => {
+       io.emit('update','all');
+    });
 });
 
 http.listen(port, function () {
