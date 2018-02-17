@@ -26,7 +26,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('updatedata', (resp) => {
+        console.log(`updating : ${resp}`)
        io.emit('update','all');
+    });
+
+    socket.on('updated', (resp) => {
+       io.emit('dataupdated',"all");
     });
 });
 
