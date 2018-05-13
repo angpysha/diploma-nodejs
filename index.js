@@ -42,8 +42,8 @@ http.listen(port, function () {
 const TelegramBot = require('node-telegram-bot-api');
 var unirest = require('unirest');
 
-const LASTURL = 'http://rasp.kl.com.ua/web/dhts/last';
-const LASTURLBMP = 'http://rasp.kl.com.ua/web/bmps/last';
+const LASTURL = 'http://rasp.kl.com.ua/web/api/v1/dhts/last';
+const LASTURLBMP = 'http://rasp.kl.com.ua/web/api/v1/bmps/last';
 
 app.get('/', function (req, res) {
 
